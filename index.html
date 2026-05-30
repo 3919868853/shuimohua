@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>水墨丹青 · 墨韵千年 | 中国传统水墨画艺术典藏</title>
+    <meta name="description" content="水墨画 —— 以笔为骨，以墨为韵。千年传承，东方美学的极致表达。走进水墨世界，感受虚实相生的意境。">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ink-black: #1a1a1a;
+            --ink-deep: #2c2c2c;
+            --ink-light: #5a5a5a;
+            --paper-white: #faf9f5;
+            --paper-warm: #f5f0e6;
+            --cinnabar: #b33b2c;      /* 朱砂红 */
+            --cinnabar-light: #d45c4a;
+            --stone-grey: #8f8c84;
+            --border-ink: rgba(0, 0, 0, 0.12);
+            --shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            background-color: var(--paper-white);
+            background-image: url('https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-attachment: fixed;
+            background-size: cover;
+            background-blend-mode: overlay;
+            color: var(--ink-black);
+            line-height: 1.7;
+            font-family: 'Noto Serif SC', 'Segoe UI', '华文楷书', 'Microsoft YaHei', serif;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(250, 249, 245, 0.88);
+            z-index: -1;
+        }
+
+        header {
+            background: rgba(250, 249, 245, 0.94);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--cinnabar);
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--ink-black);
+            letter-spacing: 2px;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+            color: var(--cinnabar);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--ink-black);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+            font-family: inherit;
+        }
+
+        nav ul li a:hover {
+            color: var(--cinnabar);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--cinnabar);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            background: linear-gradient(105deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 100%), url('https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center 30%;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            border-bottom: 2px solid var(--cinnabar);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(250, 249, 245, 0.7);
+            backdrop-filter: blur(5px);
+            padding: 2rem 2.5rem;
+            border-radius: 32px;
+            border: 1px solid rgba(179, 59, 44, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            letter-spacing: 8px;
+            color: var(--ink-black);
+        }
+
+        .hero h1 span {
+            font-size: 1.4rem;
+            letter-spacing: 4px;
+            display: block;
+            color: var(--cinnabar);
+            font-weight: 400;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--cinnabar);
+            color: var(--paper-white);
+            font-weight: 500;
+            padding: 0.2rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-bottom: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            color: #2c2c2c;
+        }
+
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--ink-black);
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1.5px solid var(--cinnabar);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--cinnabar);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(179, 59, 44, 0.3);
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--ink-black);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 2px;
+            background-color: var(--cinnabar);
+        }
+
+        .section-title p {
+            color: var(--ink-light);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1rem;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-img {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.02);
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--ink-black);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-text h3 i {
+            color: var(--cinnabar);
+        }
+
+        .highlight-box {
+            background: rgba(179, 59, 44, 0.06);
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            border-left: 4px solid var(--cinnabar);
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.8rem 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(2px);
+            border-radius: 28px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(179, 59, 44, 0.2);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-6px);
+            border-color: var(--cinnabar);
+            background: white;
+        }
+
+        .stat-item i {
+            font-size: 2.5rem;
+            color: var(--cinnabar);
+            margin-bottom: 0.8rem;
+        }
+
+        .stat-item h3 {
+            font-size: 2.2rem;
+            color: var(--ink-black);
+            margin-bottom: 0.3rem;
+        }
+
+        .services {
+            background: rgba(245, 240, 230, 0.6);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #ece4d8;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--cinnabar);
+        }
+
+        .service-img {
+            height: 210px;
+            overflow: hidden;
+        }
+
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .service-card:hover .service-img img {
+            transform: scale(1.04);
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.6rem;
+            color: var(--ink-black);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .service-content p {
+            color: var(--ink-light);
+            font-size: 0.9rem;
+        }
+
+        .cta {
+            background: linear-gradient(115deg, #e8e0d4, #f0ece4);
+            text-align: center;
+            padding: 4rem 0;
+            border-top: 1px solid var(--cinnabar);
+            border-bottom: 1px solid var(--cinnabar);
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--ink-black);
+        }
+
+        .cta .highlight {
+            color: var(--cinnabar);
+        }
+
+        .cta p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta .btn {
+            background: var(--cinnabar);
+            color: white;
+            border: none;
+        }
+
+        .cta .btn:hover {
+            background: #8f2e21;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: #1e1e1c;
+            color: #cbcbc0;
+            padding: 3rem 0 1rem;
+            border-top: 2px solid var(--cinnabar);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 6px;
+            color: #e6d5b8;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--cinnabar);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #aaa69d;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--cinnabar);
+            padding-left: 4px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            background: rgba(255, 255, 255, 0.08);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #ddd2c0;
+            transition: 0.2s;
+        }
+
+        .social-links a:hover {
+            background: var(--cinnabar);
+            color: #1e1e1c;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.8rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--ink-black);
+        }
+
+        @media (max-width: 992px) {
+            .about-content { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-content { grid-template-columns: repeat(2,1fr); }
+            .stats { grid-template-columns: repeat(2,1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; letter-spacing: 4px; }
+            .hero p { font-size: 0.95rem; }
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--paper-white);
+                flex-direction: column;
+                padding: 1rem;
+                text-align: center;
+                z-index: 99;
+                box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+                border-bottom: 1px solid var(--cinnabar);
+            }
+            nav ul.active { display: flex; }
+            nav ul li { margin: 0.6rem 0; }
+            .mobile-menu { display: block; }
+            .services-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr; }
+        }
+
+        /* 印章风格 */
+        .seal {
+            display: inline-block;
+            font-family: 'Segoe UI', '华文楷书', cursive;
+            color: var(--cinnabar);
+            border: 1px solid var(--cinnabar);
+            padding: 0.1rem 0.6rem;
+            border-radius: 2px;
+            font-size: 0.7rem;
+            margin-left: 8px;
+            transform: rotate(-3deg);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-brush"></i>
+                <span>水墨丹青</span>
+                <span class="seal">墨韵</span>
+            </div>
+            <nav>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul>
+                    <li><a href="#home">水墨之境</a></li>
+                    <li><a href="#about">笔·墨·韵</a></li>
+                    <li><a href="#masters">传世名家</a></li>
+                    <li><a href="#story">技法·心法</a></li>
+                    <li><a href="#contact">雅集</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div class="hero-badge"><i class="fas fa-feather-alt"></i> 东方美学 · 写意精神</div>
+            <h1>水墨画<br><span>Ink Wash Painting</span></h1>
+            <p>以笔为骨，以墨为韵。虚实相生，大象无形。<br>千年传承，一纸氤氲。</p>
+            <a href="#about" class="btn"><i class="fas fa-scroll"></i> 走入墨韵世界</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>水墨 · 中国画的灵魂</h2>
+                <p>墨分五色，焦、浓、重、淡、清，于方寸之间见天地</p>
+            </div>
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="水墨山水意境">
+                </div>
+                <div class="about-text">
+                    <h3><i class="fas fa-water"></i> 墨韵 · 五色之变</h3>
+                    <p>水墨画，是中国绘画的代表形式，以水和墨的调配创造出千变万化的层次。唐代王维提出“水墨为上”，宋代以后成为文人画的最高追求。它不追求视觉的绝对逼真，而讲究“气韵生动”与“意境深远”。</p>
+                    <p>一支毛笔，一张宣纸，墨色在水的引导下自然晕开——青山、云雾、孤舟、渔翁，皆在虚实之间诞生。水墨画的精髓在于“留白”，无画处皆成妙境，给观者无尽的想象空间。</p>
+                    <div class="highlight-box">
+                        <i class="fas fa-quote-left"></i>  “夫画道之中，水墨最为上。肇自然之性，成造化之功。” —— 王维《山水诀》
+                    </div>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <i class="fas fa-palette"></i>
+                    <h3 class="counter" data-target="1500">0</h3>
+                    <p>余年传承史</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-paintbrush"></i>
+                    <h3 class="counter" data-target="36">0</h3>
+                    <p>经典皴法</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-landmark"></i>
+                    <h3 class="counter" data-target="120">0</h3>
+                    <p>传世名作+</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-heart"></i>
+                    <h3 class="counter" data-target="98">0</h3>
+                    <p>意境认可度 (%)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="masters">
+        <div class="container">
+            <div class="section-title">
+                <h2>传世名家 · 墨痕千古</h2>
+                <p>历代大师笔下，自有山河气象</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1579783489429-cc701d9e71e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="范宽·溪山行旅图">
+                    </div>
+                    <div class="service-content">
+                        <h3>范宽 <span style="font-size:0.8rem;">北宋</span></h3>
+                        <p>《溪山行旅图》—— 雨点皴开创者，山峦浑厚，气势逼人。其画风被誉为“得山之骨，与山传神”。</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1556304653-cba65c9b3c5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="黄公望">
+                    </div>
+                    <div class="service-content">
+                        <h3>黄公望 <span style="font-size:0.8rem;">元代</span></h3>
+                        <p>《富春山居图》—— 浅绛山水巅峰，笔墨疏秀，意境萧散淡泊，被誉为“画中之兰亭”。</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1578301978073-5c28a7b0a61a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="八大山人">
+                    </div>
+                    <div class="service-content">
+                        <h3>八大山人 <span style="font-size:0.8rem;">清初</span></h3>
+                        <p>简笔大写意，鱼鸟白眼向天，孤傲奇绝。以极简笔墨表达国破家亡的悲愤与禅意。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="services-grid" style="margin-top: 2rem;">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1544511916-0147ededa4af?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="齐白石">
+                    </div>
+                    <div class="service-content">
+                        <h3>齐白石 <span style="font-size:0.8rem;">近现代</span></h3>
+                        <p>衰年变法，妙在似与不似之间。虾、蟹、蛙趣意盎然，将民间情趣与文人画完美融合。</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="张大千">
+                    </div>
+                    <div class="service-content">
+                        <h3>张大千 <span style="font-size:0.8rem;">现代</span></h3>
+                        <p>泼墨泼彩，开创青绿山水新境。游历西方，将抽象表现融入传统，气魄宏大。</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="当代水墨">
+                    </div>
+                    <div class="service-content">
+                        <h3>当代 · 新水墨</h3>
+                        <p>传承与实验并存，墨象、抽象表达，让水墨走向世界，成为东方当代艺术的代表语言。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="story">
+        <div class="container">
+            <div class="section-title">
+                <h2>技法 · 心法</h2>
+                <p>笔墨纸砚，四者合一，方成意境</p>
+            </div>
+            <div class="about-content" style="grid-template-columns:1fr 1fr; gap:2rem;">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="笔墨纸砚">
+                </div>
+                <div>
+                    <h3 style="color:var(--ink-black);"><i class="fas fa-dragon"></i> 笔法·皴擦点染</h3>
+                    <p>水墨画的核心技法包括勾、皴、擦、点、染。皴法表现山石纹理，如披麻皴、斧劈皴、雨点皴等数十种；墨法则讲究“泼、破、积、焦、宿”，通过水与墨的交融展现万象。用笔强调书法性——一波三折，气韵贯通。</p>
+                    <p>而真正的水墨境界，在于“外师造化，中得心源”。画家不是机械复制自然，而是将内心情感与自然山川融合，达到“可观、可游、可居”的精神栖居。</p>
+                    <div class="highlight-box">
+                        <i class="fas fa-feather-alt"></i>  “六法精论，万古不移”—— 谢赫《古画品录》<br>
+                        气韵生动、骨法用笔、应物象形、随类赋彩、经营位置、传移模写。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="special">
+        <div class="container">
+            <h2>《墨韵 · 典藏集》<span class="highlight"> 限量版画册</span></h2>
+            <p>收录历代传世名作高清复刻，附赠名家教学手稿。让千年墨香，融入您的书房。</p>
+            <a href="#" class="btn"><i class="fas fa-gem"></i> 珍藏水墨艺术</a>
+            <p style="margin-top: 1rem; font-size:0.8rem;">※ 典藏画册 限量2025套，附编号藏书票及宣纸复刻小品</p>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>水墨丹青 · 墨韵千年</h3>
+                    <p>© 中国传统艺术推广计划<br>让世界看见东方笔墨精神。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fab fa-artstation"></i></a>
+                        <a href="#"><i class="fab fa-bilibili"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>画道导航</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">水墨之境</a></li>
+                        <li><a href="#about">笔·墨·韵</a></li>
+                        <li><a href="#masters">传世名家</a></li>
+                        <li><a href="#story">技法心法</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>雅集·动态</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">线上水墨展</a></li>
+                        <li><a href="#">名家讲座</a></li>
+                        <li><a href="#">工坊课程</a></li>
+                        <li><a href="#">学术期刊</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>访墨问茶</h3>
+                    <p><i class="fas fa-envelope"></i> ink@chinese-art.cn</p>
+                    <p><i class="fas fa-comment-dots"></i> 微信公众号：水墨丹青</p>
+                    <p><i class="fas fa-location-dot"></i> 杭州 · 中国美术学院</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 水墨丹青艺术计划 | 笔墨当随时代，意趣自成乾坤</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动菜单切换
+        document.querySelector('.mobile-menu')?.addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+
+        // 计数器滚动触发
+        let counted = false;
+        function startCounters() {
+            if(counted) return;
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                let current = 0;
+                const step = Math.ceil(target / 70);
+                const update = () => {
+                    current += step;
+                    if(current >= target) {
+                        counter.innerText = target;
+                        return;
+                    }
+                    counter.innerText = current;
+                    requestAnimationFrame(update);
+                };
+                update();
+            });
+            counted = true;
+        }
+
+        const statSection = document.querySelector('#about .stats');
+        if(statSection) {
+            const observer = new IntersectionObserver((entries) => {
+                if(entries[0].isIntersecting && !counted) {
+                    startCounters();
+                    observer.unobserve(statSection);
+                }
+            }, { threshold: 0.3 });
+            observer.observe(statSection);
+        } else {
+            window.addEventListener('load', () => setTimeout(startCounters, 500));
+        }
+
+        // 平滑滚动 + 关闭移动菜单
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if(targetId === "#" || targetId === "") return;
+                const targetElem = document.querySelector(targetId);
+                if(targetElem) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: targetElem.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    const navMenu = document.querySelector('nav ul');
+                    if(navMenu && navMenu.classList.contains('active')) navMenu.classList.remove('active');
+                }
+            });
+        });
+        console.log("%c 水墨丹青 · 无画处皆成妙境", "color: #b33b2c; font-size: 14px; font-weight: bold;");
+    </script>
+</body>
+</html>
